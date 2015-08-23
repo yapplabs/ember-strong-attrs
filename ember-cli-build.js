@@ -1,10 +1,11 @@
 /* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
+var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    // Add options here
-  });
+  defaults.babel = {
+    optional: ['es7.decorators']
+  };
+  var app = new EmberAddon(defaults);
 
   /*
     This build file specifes the options for the dummy test app of this

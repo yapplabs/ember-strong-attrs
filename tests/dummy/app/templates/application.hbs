@@ -1,3 +1,8 @@
 <h2 id="title">Welcome to Ember.js</h2>
 
+{{#link-to 'index'}}Satisfying requirements{{/link-to}}
+| {{#link-to 'missing-required'}}Missing required attr{{/link-to}}
+| {{#link-to 'wrong-type-required'}}Wrong type on required attr{{/link-to}}
+| {{#link-to 'wrong-type-string'}}Wrong type on string attr{{/link-to}}
+| {{#link-to 'wrong-model-type'}}Wrong type on person attr{{/link-to}}
 {{outlet}}
