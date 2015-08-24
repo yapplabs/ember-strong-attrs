@@ -5,6 +5,7 @@ if (!extendedComponent) {
   Ember.Component.reopen({
     checkStrongAttrs: Ember.on('init', function(){
       const declaredStrongAttrs = this.constructor.superclass.declaredStrongAttrs;
+      if (!declaredStrongAttrs) { return; }
       declaredStrongAttrs.forEach((declaredAttr) => {
         const val = this.getAttr(declaredAttr.name);
         const isUndefined = val === undefined;
