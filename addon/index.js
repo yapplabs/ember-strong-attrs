@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
-var extendedComponent = false;
+let declaredStrongAttrsKey = 'declaredStrongAttrs';
+let extendedComponent = false;
 
 if (!extendedComponent) {
   Ember.Component.reopen({
     checkStrongAttrs: Ember.on('init', function() {
-      const declaredStrongAttrs = this.constructor.superclass.declaredStrongAttrs;
+      const declaredStrongAttrs = this.constructor.superclass[declaredStrongAttrsKey];
 
       if (!declaredStrongAttrs) { return; }
 
@@ -42,7 +43,7 @@ export function optionalAttr(attrName, attrType) {
 function declareAttr(target, attrName, attrType, isRequired) {
   ensureDeclaredStrongAttrs(target);
 
-  target.declaredStrongAttrs.push({
+  target[declaredStrongAttrsKey].push({
     name: attrName,
     type: attrType,
     required: isRequired
@@ -80,13 +81,13 @@ function throwInvalidTypeError(declaredAttr, val, component) {
 function ensureDeclaredStrongAttrs(target) {
   let missingDeclaredStrongsAttrs = true;
   for (let prop in target) {
-    if (prop === 'declaredStrongAttrs') {
+    if (prop === declaredStrongAttrsKey) {
       missingDeclaredStrongsAttrs = false;
     }
   }
 
   if (missingDeclaredStrongsAttrs) {
-    Object.defineProperty(target, 'declaredStrongAttrs', {
+    Object.defineProperty(target, declaredStrongAttrsKey, {
       writable: false,
       configurable: false,
       enumerable: true,
