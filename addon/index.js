@@ -4,7 +4,7 @@ var extendedComponent = false;
 
 if (!extendedComponent) {
   Ember.Component.reopen({
-    checkStrongAttrs: Ember.on('init', function(){
+    checkStrongAttrs: Ember.on('init', function() {
       const declaredStrongAttrs = this.constructor.superclass.declaredStrongAttrs;
 
       if (!declaredStrongAttrs) { return; }
@@ -33,21 +33,14 @@ export function requiredAttr(attrName, attrType) {
   };
 }
 
-export function optionalAttr(attrName, attrType){
+export function optionalAttr(attrName, attrType) {
   return function(target) {
     declareAttr(target, attrName, attrType, false);
   };
 }
 
 function declareAttr(target, attrName, attrType, isRequired) {
-  if (!target.declaredStrongAttrs) {
-    Object.defineProperty(target, 'declaredStrongAttrs', {
-      writable: false,
-      configurable: false,
-      enumerable: true,
-      value: []
-    });
-  }
+  ensureDeclaredStrongAttrs(target);
 
   target.declaredStrongAttrs.push({
     name: attrName,
@@ -56,7 +49,7 @@ function declareAttr(target, attrName, attrType, isRequired) {
   });
 }
 
-function validateType(declaredAttr, val, component){
+function validateType(declaredAttr, val, component) {
   switch (declaredAttr.type) {
     case String:
       if (Ember.typeOf(val) !== 'string') {
@@ -82,6 +75,24 @@ function validateType(declaredAttr, val, component){
 
 function throwInvalidTypeError(declaredAttr, val, component) {
   throw new Error(`Component ${component.toString()} expected attribute '${declaredAttr.name}' to be of type '${typeToString(declaredAttr.type)}'. Was '${val}'`);
+}
+
+function ensureDeclaredStrongAttrs(target) {
+  let missingDeclaredStrongsAttrs = true;
+  for (let prop in target) {
+    if (prop === 'declaredStrongAttrs') {
+      missingDeclaredStrongsAttrs = false;
+    }
+  }
+
+  if (missingDeclaredStrongsAttrs) {
+    Object.defineProperty(target, 'declaredStrongAttrs', {
+      writable: false,
+      configurable: false,
+      enumerable: true,
+      value: []
+    });
+  }
 }
 
 function typeToString(type) {
