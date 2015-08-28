@@ -6,7 +6,7 @@ let extendedComponent = false;
 if (!extendedComponent) {
   Ember.Component.reopen({
     checkStrongAttrs: Ember.on('init', function() {
-      const declaredStrongAttrs = this.constructor.superclass[declaredStrongAttrsKey];
+      const declaredStrongAttrs = this.constructor[declaredStrongAttrsKey];
 
       if (!declaredStrongAttrs) { return; }
 

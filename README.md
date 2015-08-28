@@ -8,7 +8,7 @@ Ember Strong Attrs is an addon that facilitates the declaration of
 ## Caveats
 
 - You need to enable [ES7 Decorators][decorators] in Babel.
-- [JSHint does not support ES7 Decorators at the moment] so you
+- [JSHint does not support ES7 Decorators at the moment][jshint-no-decorators] so you
   will get JSHint errors like this: ` Unexpected '@'.`.
 - Your `Ember.Component` needs to be ES6 classes so that the ES7 Decorators can
   decorate them.
@@ -16,10 +16,13 @@ Ember Strong Attrs is an addon that facilitates the declaration of
 ## Setup
 
 1. Install the addon
+
   ```
   ember install --save-dev ember-strong-attrs
   ```
+
 2. Update your `ember-cli-build.js` to enable Babel's ES7 Decorators
+
   ```js
   /* global require, module */
   var EmberApp = require('ember-cli/lib/broccoli/ember-app');
@@ -34,10 +37,12 @@ Ember Strong Attrs is an addon that facilitates the declaration of
     return app.toTree();
   };
   ```
+
 3. Update the components you want to declare required/option attributes on to
    use [ES6 Classes syntax][classes].
 
   Given the following `Ember.Component` definition:
+
   ```js
   import Ember from 'ember';
 
@@ -46,7 +51,8 @@ Ember Strong Attrs is an addon that facilitates the declaration of
   });
   ```
 
-  You will get the following using [ES6 Classes syntax][classes];
+  You will get the following using [ES6 Classes syntax][classes]
+
   ```js
   import Ember from 'ember';
 
@@ -54,7 +60,9 @@ Ember Strong Attrs is an addon that facilitates the declaration of
     // ... your methods and props
   }) { } // Don't forget the trailing { } and the removal of the semicolon
   ```
+
 4. Import the decorators into your component file.
+
   ```js
   import { requiredAttr, optionalAttr } from 'ember-strong-attrs';
   ```
