@@ -7,9 +7,9 @@ module('requiredAttrs test', {
 
 test('throws when missing required attrs', (assert) => {
   @requiredAttr('someString', String)
-  class KlassRequiringString extends Ember.Component.extend({}) { }
+  class KlassRequireString extends Ember.Component.extend({}) { }
   const noStringErrorBlock = () => {
-    KlassRequiringString.create({
+    KlassRequireString.create({
       attrs: {}
     });
   };
@@ -19,9 +19,9 @@ test('throws when missing required attrs', (assert) => {
   }, 'throws error message when missing required string attr');
 
   @requiredAttr('someDate', Date)
-  class KlassRequiringDate extends Ember.Component.extend({}) { }
+  class KlassRequireDate extends Ember.Component.extend({}) { }
   const noDateErrorBlock = () => {
-    KlassRequiringDate.create({
+    KlassRequireDate.create({
       attrs: {}
     });
   };
@@ -31,9 +31,9 @@ test('throws when missing required attrs', (assert) => {
   }, 'throws error message when missing required date attr');
 
   @requiredAttr('someNumber', Number)
-  class KlassRequiringNumber extends Ember.Component.extend({}) { }
+  class KlassRequireNumber extends Ember.Component.extend({}) { }
   const noNumberErrorBlock = () => {
-    KlassRequiringNumber.create({
+    KlassRequireNumber.create({
       attrs: {}
     });
   };
@@ -45,9 +45,9 @@ test('throws when missing required attrs', (assert) => {
 
 test('throws when provided attr type does not match required type', (assert) => {
   @requiredAttr('someString', String)
-  class KlassRequiringString extends Ember.Component.extend({}) { }
+  class KlassRequireString extends Ember.Component.extend({}) { }
   const noStringErrorBlock = () => {
-    KlassRequiringString.create({
+    KlassRequireString.create({
       attrs: {
         someString: 1
       }
@@ -59,9 +59,9 @@ test('throws when provided attr type does not match required type', (assert) => 
   }, 'throws error message when attr is not String');
 
   @requiredAttr('someDate', Date)
-  class KlassRequiringDate extends Ember.Component.extend({}) { }
+  class KlassRequireDate extends Ember.Component.extend({}) { }
   const noDateErrorBlock = () => {
-    KlassRequiringDate.create({
+    KlassRequireDate.create({
       attrs: {
         someDate: ''
       }
@@ -73,9 +73,9 @@ test('throws when provided attr type does not match required type', (assert) => 
   }, 'throws error message when attr is not Date');
 
   @requiredAttr('someNumber', Number)
-  class KlassRequiringNumber extends Ember.Component.extend({}) { }
+  class KlassRequireNumber extends Ember.Component.extend({}) { }
   const noNumberErrorBlock = () => {
-    KlassRequiringNumber.create({
+    KlassRequireNumber.create({
       attrs: {
         someNumber: new Date()
       }
@@ -89,32 +89,32 @@ test('throws when provided attr type does not match required type', (assert) => 
 
 test('does not throw when required attrs are provided', (assert) => {
   @requiredAttr('someString', String)
-  class KlassRequiringString extends Ember.Component.extend({}) { }
-  const objectWithStringAttr = KlassRequiringString.create({
+  class KlassRequireString extends Ember.Component.extend({}) { }
+  const objectWithStringAttr = KlassRequireString.create({
     attrs: {
       someString: ''
     }
   });
 
-  assert.ok(objectWithStringAttr, 'does not throw when requires attr is provided');
+  assert.ok(objectWithStringAttr, 'does not throw when required attr is provided');
 
   @requiredAttr('someDate', Date)
-  class KlassRequiringDate extends Ember.Component.extend({}) { }
-  const objectWithDateAttr = KlassRequiringDate.create({
+  class KlassRequireDate extends Ember.Component.extend({}) { }
+  const objectWithDateAttr = KlassRequireDate.create({
     attrs: {
       someDate: new Date()
     }
   });
 
-  assert.ok(objectWithDateAttr, 'does not throw when requires attr is provided');
+  assert.ok(objectWithDateAttr, 'does not throw when required attr is provided');
 
   @requiredAttr('someNumber', Number)
-  class KlassRequiringNumber extends Ember.Component.extend({}) { }
-  const objectWithNumberAttr = KlassRequiringNumber.create({
+  class KlassRequireNumber extends Ember.Component.extend({}) { }
+  const objectWithNumberAttr = KlassRequireNumber.create({
     attrs: {
       someNumber: 1
     }
   });
 
-  assert.ok(objectWithNumberAttr, 'does not throw when requires attr is provided');
+  assert.ok(objectWithNumberAttr, 'does not throw when required attr is provided');
 });
