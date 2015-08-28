@@ -78,7 +78,7 @@ test('throws when provided attr type does not match specified type', (assert) =>
   }, 'throws error message when attr is not Number');
 });
 
-test('does not throw when required attrs are provided', (assert) => {
+test('does not throw when optional attrs are provided', (assert) => {
   @optionalAttr('someString', String)
   class KlassOptionalString extends Ember.Component.extend({}) { }
   const objectWithStringAttr = KlassOptionalString.create({
