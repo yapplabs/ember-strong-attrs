@@ -1,6 +1,6 @@
-# Ember Strong Attrs
+# ember-strong-attrs
 
-Ember Strong Attrs is an addon that facilitates the declaration of
+`ember-strong-attrs` is an addon that facilitates the declaration of
 `Ember.Component` required and optional attributes. It extends
 `Ember.Component` and provides [ES7 Decorators][decorators] to declare
 **required** and **optional** attributes.
@@ -69,10 +69,7 @@ Ember Strong Attrs is an addon that facilitates the declaration of
 
 ## API
 
-Ember Strong Attrs exposes two decorators:
-
-- `@requiredAttrs(attrName, attrType)`
-- `@optionalAttrs(attrName, attrType)`
+### Supported Attribute types
 
 The `attrType` argument can be the following classes:
 
@@ -81,6 +78,13 @@ The `attrType` argument can be the following classes:
 - `Date`
 - `Function`
 - `YouCustomClass`
+
+### Decorators
+
+`ember-strong-attrs` exposes two decorators:
+
+- `@requiredAttrs(attrName, attrType)`
+- `@optionalAttrs(attrName, attrType)`
 
 Example:
 
@@ -96,6 +100,29 @@ import Person from '../models/person';
 export default class Ember.Component.extend({
   // ... your methods and props
 }) { }
+```
+
+### ES6 Compatible
+
+`ember-strong-attr` exposes one function to declare strong attributes on
+`Ember.Component`
+
+- `declareStrongAttrs(attrsFunc, component)`, it returns the modified `component` that was passed in.
+
+Example:
+
+```js
+import Ember from 'ember';
+import { declareStrongAttrs } from 'ember-strong-attrs';
+import Person from '../models/person';
+
+export default declareStrongAttrs(function() {
+  this.requiredAttr('myRequiredAttr', String);
+  this.optionalAttr('myOptionalAttr', String);
+  this.requiredAttr('myPersonAttr', Person);
+}, Ember.Component.extend({
+  // ... your methods and props
+}));
 ```
 
 [decorators]:https://github.com/wycats/javascript-decorators

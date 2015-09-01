@@ -44,3 +44,18 @@ export function optionalAttr(attrName, attrType) {
     declareAttr(target, attrName, attrType, false);
   };
 }
+
+export function declareStrongAttrs(attrsFunc, target) {
+  // inject DSL methods that closed upon the target object
+  attrsFunc.requiredAttr = function(attrName, attrType) {
+    declareAttr(target, attrName, attrType, true);
+  };
+
+  attrsFunc.optionalAttr = function(attrName, attrType) {
+    declareAttr(target, attrName, attrType, false);
+  };
+
+  attrsFunc.call(attrsFunc);
+
+  return target;
+}
