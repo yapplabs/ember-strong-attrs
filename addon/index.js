@@ -1,6 +1,11 @@
 import Ember from 'ember';
+import {
+  declaredStrongAttrsKey,
+  declareAttr,
+  validateType,
+  throwMissingError,
+} from 'ember-strong-attrs/core';
 
-let declaredStrongAttrsKey = 'declaredStrongAttrs';
 let extendedComponent = false;
 
 if (!extendedComponent) {
@@ -15,7 +20,7 @@ if (!extendedComponent) {
         const isUndefined = val === undefined;
 
         if (isUndefined && declaredAttr.required) {
-          throw new Error(`Component ${this.toString()} missing required attribute '${declaredAttr.name}'. Expected type '${typeToString(declaredAttr.type)}'`)
+          throwMissingError(declaredAttr, this);
         }
 
         if (declaredAttr.type && !isUndefined) {
@@ -40,72 +45,17 @@ export function optionalAttr(attrName, attrType) {
   };
 }
 
-function declareAttr(target, attrName, attrType, isRequired) {
-  ensureDeclaredStrongAttrs(target);
+export function declareStrongAttrs(attrsFunc, target) {
+  // inject DSL methods that closed upon the target object
+  attrsFunc.requiredAttr = function(attrName, attrType) {
+    declareAttr(target, attrName, attrType, true);
+  };
 
-  target[declaredStrongAttrsKey].push({
-    name: attrName,
-    type: attrType,
-    required: isRequired
-  });
+  attrsFunc.optionalAttr = function(attrName, attrType) {
+    declareAttr(target, attrName, attrType, false);
+  };
+
+  attrsFunc.call(attrsFunc);
+
+  return target;
 }
-
-function validateType(declaredAttr, val, component) {
-  switch (declaredAttr.type) {
-    case String:
-      if (Ember.typeOf(val) !== 'string') {
-        throwInvalidTypeError(declaredAttr, val, component);
-      }
-      break;
-    case Date:
-      if (Ember.typeOf(val) !== 'date') {
-        throwInvalidTypeError(declaredAttr, val, component);
-      }
-      break;
-    case Number:
-      if (Ember.typeOf(val) !== 'number') {
-        throwInvalidTypeError(declaredAttr, val, component);
-      }
-      break;
-    default:
-      if (!(val instanceof declaredAttr.type)) {
-        throwInvalidTypeError(declaredAttr, val, component);
-      }
-  }
-}
-
-function throwInvalidTypeError(declaredAttr, val, component) {
-  throw new Error(`Component ${component.toString()} expected attribute '${declaredAttr.name}' to be of type '${typeToString(declaredAttr.type)}'. Was '${val}'`);
-}
-
-function ensureDeclaredStrongAttrs(target) {
-  let missingDeclaredStrongsAttrs = true;
-  for (let prop in target) {
-    if (prop === declaredStrongAttrsKey) {
-      missingDeclaredStrongsAttrs = false;
-    }
-  }
-
-  if (missingDeclaredStrongsAttrs) {
-    Object.defineProperty(target, declaredStrongAttrsKey, {
-      writable: false,
-      configurable: false,
-      enumerable: true,
-      value: []
-    });
-  }
-}
-
-function typeToString(type) {
-  switch (type) {
-    case String:
-      return 'String';
-    case Date:
-      return 'Date';
-    case Number:
-      return 'Number';
-    default:
-      return type.toString();
-  }
-}
-
