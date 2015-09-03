@@ -13,7 +13,7 @@
 - [JSHint does not support ES7 Decorators at the moment][jshint-no-decorators] so you
   will get JSHint errors like this: ` Unexpected '@'.`. To avoid this, you can tell
   jshint to ignore your decorators for now, as shown in the examples below.
-- Your `Ember.Component` needs to be ES6 classes so that the ES7 Decorators can
+- Your `Ember.Component`s need to be ES6 classes so that the ES7 Decorators can
   decorate them.
 
 ## Setup
@@ -59,7 +59,7 @@
   ```js
   import Ember from 'ember';
 
-  export default class Ember.Component.extend({ // Note the class keyword
+  export default class extends Ember.Component.extend({ // Note the class keyword
     // ... your methods and props
   }) { } // Don't forget the trailing { } and the removal of the semicolon
   ```
@@ -102,7 +102,7 @@ import Person from '../models/person';
 @optionalAttr('myStringAttr', String)
 @optionalAttr('myPersonAttr', Person)
 /* jshint ignore: end */
-export default class Ember.Component.extend({
+export default class extends Ember.Component.extend({
   // ... your methods and props
 }) { }
 ```
