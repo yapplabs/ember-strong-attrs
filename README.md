@@ -11,7 +11,8 @@
   if it's a *good* idea yet.
 - You need to enable [ES7 Decorators][decorators] in Babel.
 - [JSHint does not support ES7 Decorators at the moment][jshint-no-decorators] so you
-  will get JSHint errors like this: ` Unexpected '@'.`.
+  will get JSHint errors like this: ` Unexpected '@'.`. To avoid this, you can tell
+  jshint to ignore your decorators for now, as shown in the examples below.
 - Your `Ember.Component` needs to be ES6 classes so that the ES7 Decorators can
   decorate them.
 
@@ -20,7 +21,7 @@
 1. Install the addon
 
   ```
-  ember install --save-dev ember-strong-attrs
+  ember install ember-strong-attrs
   ```
 
 2. Update your `ember-cli-build.js` to enable Babel's ES7 Decorators
@@ -85,8 +86,8 @@ The `attrType` argument can be the following classes:
 
 `ember-strong-attrs` exposes two decorators:
 
-- `@requiredAttrs(attrName, attrType)`
-- `@optionalAttrs(attrName, attrType)`
+- `@requiredAttr(attrName, attrType)`
+- `@optionalAttr(attrName, attrType)`
 
 Example:
 
@@ -96,9 +97,11 @@ import { requiredAttr, optionalAttr } from 'ember-strong-attrs';
 import Person from '../models/person';
 
 // Note the lack of semicolons behind the decorators
+/* jshint ignore: start */
 @requiredAttr('myRequiredAttr', String)
 @optionalAttr('myStringAttr', String)
 @optionalAttr('myPersonAttr', Person)
+/* jshint ignore: end */
 export default class Ember.Component.extend({
   // ... your methods and props
 }) { }
@@ -109,7 +112,7 @@ export default class Ember.Component.extend({
 `ember-strong-attr` exposes one function to declare strong attributes on
 `Ember.Component`
 
-- `declareStrongAttrs(attrsFunc, component)`, it returns the modified `component` that was passed in.
+- `declareStrongAttrs(attrsFunc, component)`, which returns the modified `component` that was passed in.
 
 Example:
 
