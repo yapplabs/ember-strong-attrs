@@ -7,6 +7,8 @@
 
 ## Caveats
 
+- Experimental. This is alpha software, and we think it's a *cool* idea but not sure
+  if it's a *good* idea yet.
 - You need to enable [ES7 Decorators][decorators] in Babel.
 - [JSHint does not support ES7 Decorators at the moment][jshint-no-decorators] so you
   will get JSHint errors like this: ` Unexpected '@'.`.
