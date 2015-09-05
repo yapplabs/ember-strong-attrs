@@ -6,7 +6,9 @@ module('optionalAttrs test', {
 });
 
 test('does not throw when missing optional attrs', (assert) => {
+  /* jshint ignore: start */
   @optionalAttr('someString', String)
+  /* jshint ignore: end */
   class KlassOptionalString extends Ember.Component.extend({}) { }
   const noStringOject = KlassOptionalString.create({
     attrs: {}
@@ -15,7 +17,9 @@ test('does not throw when missing optional attrs', (assert) => {
   assert.ok(noStringOject,
     'does not throw error message when missing optional string attr');
 
+  /* jshint ignore: start */
   @optionalAttr('someDate', Date)
+  /* jshint ignore: end */
   class KlassOptionalDate extends Ember.Component.extend({}) { }
   const noDateObject = KlassOptionalDate.create({
     attrs: {}
@@ -24,7 +28,9 @@ test('does not throw when missing optional attrs', (assert) => {
   assert.ok(noDateObject,
     'does not throw error message when missing optional date attr');
 
+  /* jshint ignore: start */
   @optionalAttr('someNumber', Number)
+  /* jshint ignore: end */
   class KlassOptionalNumber extends Ember.Component.extend({}) { }
   const noNumberObject = KlassOptionalNumber.create({
     attrs: {}
@@ -35,7 +41,9 @@ test('does not throw when missing optional attrs', (assert) => {
 });
 
 test('throws when provided attr type does not match specified type', (assert) => {
+  /* jshint ignore: start */
   @optionalAttr('someString', String)
+  /* jshint ignore: end */
   class KlassOptionalString extends Ember.Component.extend({}) { }
   const noStringErrorBlock = () => {
     KlassOptionalString.create({
@@ -49,7 +57,9 @@ test('throws when provided attr type does not match specified type', (assert) =>
     return Ember.isPresent(error.message.match(/someString/));
   }, 'throws error message when attr is not String');
 
+  /* jshint ignore: start */
   @optionalAttr('someDate', Date)
+  /* jshint ignore: end */
   class KlassOptionalDate extends Ember.Component.extend({}) { }
   const noDateErrorBlock = () => {
     KlassOptionalDate.create({
@@ -63,7 +73,9 @@ test('throws when provided attr type does not match specified type', (assert) =>
     return Ember.isPresent(error.message.match(/someDate/));
   }, 'throws error message when attr is not Date');
 
+  /* jshint ignore: start */
   @optionalAttr('someNumber', Number)
+  /* jshint ignore: end */
   class KlassOptionalNumber extends Ember.Component.extend({}) { }
   const noNumberErrorBlock = () => {
     KlassOptionalNumber.create({
@@ -79,7 +91,9 @@ test('throws when provided attr type does not match specified type', (assert) =>
 });
 
 test('does not throw when optional attrs are provided', (assert) => {
+  /* jshint ignore: start */
   @optionalAttr('someString', String)
+  /* jshint ignore: end */
   class KlassOptionalString extends Ember.Component.extend({}) { }
   const objectWithStringAttr = KlassOptionalString.create({
     attrs: {
@@ -89,7 +103,9 @@ test('does not throw when optional attrs are provided', (assert) => {
 
   assert.ok(objectWithStringAttr, 'does not throw when optional attr is provided');
 
+  /* jshint ignore: start */
   @optionalAttr('someDate', Date)
+  /* jshint ignore: end */
   class KlassOptionalDate extends Ember.Component.extend({}) { }
   const objectWithDateAttr = KlassOptionalDate.create({
     attrs: {
@@ -99,7 +115,9 @@ test('does not throw when optional attrs are provided', (assert) => {
 
   assert.ok(objectWithDateAttr, 'does not throw when optional attr is provided');
 
+  /* jshint ignore: start */
   @optionalAttr('someNumber', Number)
+  /* jshint ignore: end */
   class KlassOptionalNumber extends Ember.Component.extend({}) { }
   const objectWithNumberAttr = KlassOptionalNumber.create({
     attrs: {
