@@ -74,4 +74,3 @@ function typeToString(type) {
       return type.toString();
   }
 }
-
