@@ -6,6 +6,8 @@
 **optional** attributes. One is an ES6 compatible API, the other is an ES7
 decorators based API.
 
+[![Build Status](https://travis-ci.org/yapplabs/ember-strong-attrs.svg?branch=master)](https://travis-ci.org/yapplabs/ember-strong-attrs)
+
 ## Caveats
 
 - Experimental. This is alpha software, and we think it's a *cool* idea but not sure
