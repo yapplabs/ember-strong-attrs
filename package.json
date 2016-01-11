@@ -11,7 +11,7 @@
     "build": "ember build",
     "test": "ember try:testall"
   },
-  "repository": "yapplabs/ember-strong-attrs",
+  "repository": "https://github.com/yapplabs/ember-strong-attrs",
   "engines": {
     "node": ">= 0.10.0"
   },
